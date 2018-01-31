@@ -1,0 +1,15 @@
+{
+  "name": "ipswnotice",
+  "version": "1.0.0",
+  "description": "Receive push notifications when Apple's IOS firmwares are released. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "firmwares",
+    "cron"
+  ],
+  "author": "jane",
+  "license": "ISC"
+}
