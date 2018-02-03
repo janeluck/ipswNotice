@@ -60,7 +60,7 @@ function abstractData(config, data) {
         console.log(result)
 
     } else {
-        //console.log('nonononono')
+        console.log('nonononono')
     }
 
 }
