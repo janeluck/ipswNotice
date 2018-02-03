@@ -13,7 +13,6 @@
   "author": "jane",
   "license": "ISC",
   "dependencies": {
-    "cron": "^1.3.0",
     "lodash": "^4.17.4"
   }
 }
