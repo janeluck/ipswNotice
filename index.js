@@ -1,6 +1,6 @@
 const https = require('https')
 const fs = require('fs')
-
+const get = require('lodash/get')
 // read local config
 const config = JSON.parse(fs.readFileSync('./config.json', {
     encoding: 'utf8'
@@ -46,20 +46,15 @@ https.get('https://api.ipsw.me/v2.1/firmwares.json', (res) => {
 })
 
 
-const get = function () {
-
-}
-
-
 function abstractData(config, data) {
     const {devices, version, mail} = config
-    const firmwares = data['devices'] && data['devices'][devices]['firmwares'] || []
+    const firmwares = get(data, ['devices', devices, 'firmwares']) || []
     firmwares.filter(firmware => {
-        return firmware.signed &&  firmware.version[0] <= version
+        return firmware.signed && firmware.version[0] <= version
     })
-    if(firmwares.length > 0){
+    if (firmwares.length > 0) {
         // 推送
-
+        
     }
 
 }
