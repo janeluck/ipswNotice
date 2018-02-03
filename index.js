@@ -1,11 +1,13 @@
+#!/usr/bin/env node
 const https = require('https')
 const fs = require('fs')
 const get = require('lodash/get')
+const path = require('path')
+
 // read local config
-const config = JSON.parse(fs.readFileSync('./config.json', {
+const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'config.json'), {
     encoding: 'utf8'
 }))
-console.log(config)
 
 https.get('https://api.ipsw.me/v2.1/firmwares.json', (res) => {
     const statusCode = res.statusCode
@@ -35,7 +37,7 @@ https.get('https://api.ipsw.me/v2.1/firmwares.json', (res) => {
             //console.log(parsedData)
 
             // filter the needed information
-
+            abstractData(config, JSON.parse(rawData))
 
         } catch (e) {
             console.log(e.message)
@@ -49,12 +51,16 @@ https.get('https://api.ipsw.me/v2.1/firmwares.json', (res) => {
 function abstractData(config, data) {
     const {devices, version, mail} = config
     const firmwares = get(data, ['devices', devices, 'firmwares']) || []
-    firmwares.filter(firmware => {
-        return firmware.signed && firmware.version[0] <= version
+    const result = firmwares.filter(firmware => {
+        return firmware.signed && firmware.version.split('.')[0] <= version
     })
-    if (firmwares.length > 0) {
+    if (result.length > 0) {
         // 推送
-        
+        console.log(`success! Receive under ${version} versions of Apple\'s iOS Firmware`)
+        console.log(result)
+
+    } else {
+        //console.log('nonononono')
     }
 
 }
