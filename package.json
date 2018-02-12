@@ -13,8 +13,7 @@
   "author": "jane",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "semver": "^5.5.0"
   }
 }
-
-

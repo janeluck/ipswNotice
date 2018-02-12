@@ -3,6 +3,7 @@ const https = require('https')
 const fs = require('fs')
 const get = require('lodash/get')
 const path = require('path')
+const semver = require('semver')
 
 // read local config
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'config.json'), {
@@ -52,7 +53,7 @@ function abstractData(config, data) {
     const {devices, version, mail} = config
     const firmwares = get(data, ['devices', devices, 'firmwares']) || []
     const result = firmwares.filter(firmware => {
-        return firmware.signed && firmware.version.split('.')[0] <= version
+        return firmware.signed && semver.satisfies(firmware.version, version)
     })
     if (result.length > 0) {
         // 推送
