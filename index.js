@@ -53,7 +53,7 @@ function abstractData(config, data) {
     const {devices, version, mail} = config
     const firmwares = get(data, ['devices', devices, 'firmwares']) || []
     const result = firmwares.filter(firmware => {
-        return firmware.signed && semver.satisfies(firmware.version, version)
+        return firmware.signed && semver.satisfies(semver.coerce(firmware.version).version, version)
     })
     if (result.length > 0) {
         // 推送
