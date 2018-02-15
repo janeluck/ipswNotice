@@ -3,6 +3,15 @@
  */
 const semver = require('semver')
 
-console.log(semver.satisfies('10.11.2', '<11'))
-console.log(semver.satisfies('9.2.0', '<11'))
-console.log(semver.satisfies(semver.coerce('8.2').version, '<11'))
+function coerce(version) {
+    var r = /(?:^|[^\d])(\d{1,16})(?:\.(\d{1,16}))?(?:\.(\d{1,16}))?(?:$|[^\d])/
+
+    if (typeof version !== 'string')
+        return null;
+    var match = version.match(r);
+
+    if (match == null)
+        return null;
+    console.log()
+    return (match[1] || '0') + '.' + (match[2] || '0') + '.' + (match[3] || '0')
+}
